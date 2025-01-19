@@ -13,7 +13,13 @@ const scrapeChapters = async (
         if (count++ >= limit) {
             break;
         }
-        await getChapter(chapter);
+        if (count === 1) {
+            await getChapter(chapter);
+        } else {
+            setTimeout(async () => {
+                await getChapter(chapter);
+            }, 500);
+        }
     }
 };
 
@@ -24,7 +30,7 @@ const getChapter = async (chapter: string) => {
     console.log(chapterContent.join("\n"));
 };
 
-const scrapeById = async (id: string) => {
+const scrapeById = async (id: string, limit: number = LIMIT) => {
     const scraper = await scrape(`${URL}/fiction/${id}`);
 
     const list = scraper
@@ -36,7 +42,7 @@ const scrapeById = async (id: string) => {
 
     console.log(chapters);
 
-    scrapeChapters(chapters);
+    scrapeChapters(chapters, limit);
 };
 
-scrapeById(FICTION_NUMBER);
+scrapeById(FICTION_NUMBER, 2);
