@@ -8,6 +8,8 @@ const DELAY = 500; // time between requests in ms
 const OUTPUT_DIRECTORY = "./data";
 const DIRECTORY = `${OUTPUT_DIRECTORY}/${FICTION_NUMBER}`;
 
+const OUTPUT_TYPE: string = "md";
+
 await Deno.mkdir(DIRECTORY, { recursive: true });
 
 const scrapeChapters = async (
@@ -27,10 +29,18 @@ const scrapeChapters = async (
 const getChapter = async (chapter: string, id: number) => {
     const chapScraper = await scrape(chapter);
 
-    const rawChapter = chapScraper.text("div.chapter-inner");
-    const content = rawChapter.join("\r\n");
+    const rawChapter = chapScraper.text("div.chapter-inner p");
+    // console.log(rawChapter);
 
-    await Deno.writeTextFile(`${DIRECTORY}/chapter-${id}.txt`, content);
+    if (OUTPUT_TYPE === "txt") {
+        const content = rawChapter.join("\r\n");
+
+        await Deno.writeTextFile(`${DIRECTORY}/chapter-${id}.txt`, content);
+    } else if (OUTPUT_TYPE === "md") {
+        const content = `# Chapter ${id}\n\n${rawChapter.join("\n\n")}`;
+
+        await Deno.writeTextFile(`${DIRECTORY}/chapter-${id}.md`, content);
+    }
 };
 
 const scrapeById = async (id: string, limit: number = LIMIT) => {
