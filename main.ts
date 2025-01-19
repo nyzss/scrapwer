@@ -5,7 +5,10 @@ const URL = "https://www.royalroad.com";
 const FICTION_NUMBER = "102061"; // fiction id of royalroad novel (you can find it in the url)
 const DELAY = 500; // time between requests in ms
 
-await Deno.mkdir(FICTION_NUMBER, { recursive: true });
+const OUTPUT_DIRECTORY = "./data";
+const DIRECTORY = `${OUTPUT_DIRECTORY}/${FICTION_NUMBER}`;
+
+await Deno.mkdir(DIRECTORY, { recursive: true });
 
 const scrapeChapters = async (
     chapters: string[] | Set<string>,
@@ -27,7 +30,7 @@ const getChapter = async (chapter: string, id: number) => {
     const rawChapter = chapScraper.text("div.chapter-inner");
     const content = rawChapter.join("\r\n");
 
-    await Deno.writeTextFile(`./${FICTION_NUMBER}/chapter-${id}.txt`, content);
+    await Deno.writeTextFile(`${DIRECTORY}/chapter-${id}.txt`, content);
 };
 
 const scrapeById = async (id: string, limit: number = LIMIT) => {
