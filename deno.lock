@@ -10,7 +10,8 @@
     "jsr:@std/fmt@0.221.0": "0.221.0",
     "jsr:@std/fs@0.223.0": "0.223.0",
     "jsr:@std/path@0.223.0": "0.223.0",
-    "jsr:@zip-js/zip-js@2.7.41": "2.7.41"
+    "jsr:@zip-js/zip-js@2.7.41": "2.7.41",
+    "npm:@mozilla/readability@*": "0.5.0"
   },
   "jsr": {
     "@astral/astral@0.4.6": {
@@ -62,6 +63,11 @@
     },
     "@zip-js/zip-js@2.7.41": {
       "integrity": "a883116c1b46673de643f9cd3b6619d746271b96cd9a8e2b9d0bb8353d764d3d"
+    }
+  },
+  "npm": {
+    "@mozilla/readability@0.5.0": {
+      "integrity": "sha512-Z+CZ3QaosfFaTqvhQsIktyGrjFjSC0Fa4EMph4mqKnWhmyoGICsV/8QK+8HpXut6zV7zwfWwqDmEjtk1Qf6EgQ=="
     }
   }
 }
